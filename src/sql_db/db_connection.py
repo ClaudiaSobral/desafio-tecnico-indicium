@@ -60,7 +60,7 @@ class GerenciadorDuckDB:
             
         try:
             # O DuckDB consegue ler DataFrames da memória do Python diretamente
-            # Criamos ou substituímos a tabela com os dados do DataFrame
+            # Cria-se ou substitui-se a tabela com os dados do DataFrame
             self.conexao.execute(f"CREATE OR REPLACE TABLE {nome_tabela} AS SELECT * FROM df")
             logging.info(f"Tabela '{nome_tabela}' salva/atualizada com sucesso no banco!")
         except Exception as e:

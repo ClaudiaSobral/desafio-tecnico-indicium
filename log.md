@@ -65,8 +65,13 @@ script
 21/03
 - Agora eu preciso documentar o projeto
 - Preciso fazer alguns ajustes nos gráficos (top 5 em que constam apenas 3)
-- Amanhã vou fazer o dicionário de dados, rever a implementação de ML, criar um mapa mental do fluxo de dados, fazer o PDF e apresentar.
-- Revisar os comentários do código também
+- Amanhã vou fazer o
+    - dicionário de dados ✅,
+    - rever a implementação de ML ✅,
+    - criar um mapa mental do fluxo de dados, ✅
+    - fazer o PDF ✅
+    - apresentar
+    - Revisar os comentários do código ✅
 
 1. EDA ✅ (17/03)
 2. Tratamento e limpeza ✅ (17/03)

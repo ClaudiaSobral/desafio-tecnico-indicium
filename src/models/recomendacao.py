@@ -8,12 +8,12 @@ def criar_matriz_recomendacao(df_compras: pd.DataFrame) -> pd.DataFrame:
     - Colunas = Produtos
     - Valores = Quantidade comprada (ou apenas 1 para "comprou" e 0 para "não comprou")
     """
-    # Cria uma tabela cruzada (pivot table)
+    # 🟢 Cria uma tabela cruzada (pivot table)
     matriz_usuario_item = df_compras.pivot_table(
         index='id_cliente', 
         columns='id_produto', 
         values='qtd', 
-        fill_value=0 # Se não comprou, preenchemos com 0
+        fill_value=0 # Se não comprou, insere 0
     )
     return matriz_usuario_item
 
@@ -21,20 +21,20 @@ def recomendar_produtos_similares(produto_alvo: str, matriz_usuario_item: pd.Dat
     """
     Calcula quais produtos têm o padrão de compra mais parecido com o produto_alvo.
     """
-    # 1. Transpõe a matriz para que os Produtos fiquem nas linhas
+    # 🟢 Transpõe a matriz para que os Produtos fiquem nas linhas
     matriz_item_usuario = matriz_usuario_item.T
     
-    # 2. Calcula a "distância" (similaridade) entre todos os produtos
+    # 🟢 Calcula a "distância" (similaridade) entre todos os produtos
     similaridade = cosine_similarity(matriz_item_usuario)
     
-    # 3. Transforma o resultado em um DataFrame legível
+    # 🟢 Transforma o resultado em um DataFrame legível
     df_similaridade = pd.DataFrame(
         similaridade, 
         index=matriz_item_usuario.index, 
         columns=matriz_item_usuario.index
     )
     
-    # 4. Pega as pontuações do produto escolhido, remove ele mesmo da lista e ordena os maiores
+    # 🟢 Pega as pontuações do produto escolhido, remove ele mesmo da lista e ordena os maiores
     pontuacoes = df_similaridade[produto_alvo].drop(produto_alvo)
     recomendacoes = pontuacoes.sort_values(ascending=False).head(top_n)
     

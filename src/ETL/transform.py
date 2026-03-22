@@ -162,12 +162,12 @@ class TransformadorDados():
                     dados = resposta.json()
 
                     if not dados:
-                        # Busca a última cotação disponível (até 3 dias antes para cobrir feriadões)
+                        # 🟢 Busca a última cotação disponível (até 3 dias antes para cobrir feriadões)
                         url_fallback = f"https://economia.awesomeapi.com.br/json/daily/USD-BRL/1?timestamp={int(time.mktime(data.timetuple()))}"
                         resposta = requests.get(url_fallback, timeout=10)
                         dados = resposta.json()
                     
-                    # Pegamos o valor de fechamento (bid)
+                    # 🟢 Grava o valor de fechamento (bid)
                     cotacao = float(dados[0]['bid'])
                     mapa_cambio[data] = cotacao
                     print(f"   ✅ R$ {cotacao:.2f}")                
@@ -204,7 +204,7 @@ class TransformadorDados():
         # 🟢 Garante que o preço em dólar é numérico
         df["usd_price"] = pd.to_numeric(df["usd_price"])
 
-        # Criamos uma coluna temporária para a taxa daquele dia (facilita conferir o erro)
+        # 🟢 Coluna temporária para a taxa daquele dia
         df["taxa_do_dia"] = df["start_date"].map(mapa_cambio)
                 
         # Se por acaso alguma data não tiver no mapa, usamos 5.10 como fallback (segurança)
@@ -213,7 +213,7 @@ class TransformadorDados():
         # 🟢 Cria coluna em reais
         df["brl_price"] = round((df["usd_price"] * df["taxa_do_dia"]), 2)        
 
-        # 🟢 Altereção da coluna de id para int
+        # 🟢 Alteração da coluna de id para int
         df["product_id"] = df["product_id"].astype('Int64')
 
         # 🟢 Mudança do tipo da coluna start_date para datetime

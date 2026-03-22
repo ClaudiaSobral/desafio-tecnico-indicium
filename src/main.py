@@ -12,7 +12,7 @@ from src.models.previsao_demanda import preparar_dados_temporais, treinar_modelo
 from src.models.recomendacao import criar_matriz_recomendacao
 
 # ==========================================
-# NOVO: Imports do módulo de Visualização
+# Imports do módulo de Visualização
 # ==========================================
 from src.visualizations.graphs import (
     gerar_grafico_faturamento_categoria,
@@ -66,7 +66,7 @@ def run_pipeline():
         df_vendas_limpo = transformer.limpar_vendas(df_vendas)
         df_clientes_limpo = transformer.limpar_clientes(df_clientes)
 
-        # 🚀 O PULO DO GATO: Verificando se o processamento do dólar é necessário
+        # Verifica se o processamento do dólar é necessário
         db_path = 'data/processed/lhnauticaldb.duckdb'
         
         if os.path.exists(db_path):
@@ -92,7 +92,7 @@ def run_pipeline():
             df_importacao_limpo = transformer.limpar_custos_importacoes(df_custos_importacao, mapa_cambio=dolar_historico)
 
         # ==========================================
-        # 3. MACHINE LEARNING (LH Nauticals)
+        # 3. MACHINE LEARNING
         # ==========================================
         logging.info("🧠 Iniciando processamento de Machine Learning...")
         
@@ -138,7 +138,7 @@ def run_pipeline():
         print("Pipeline finalizado! Verifique o log para detalhes.")
 
         # ==========================================
-        # 5. VISUALIZAÇÃO (Data Storytelling)
+        # 5. VISUALIZAÇÃO
         # ==========================================
         logging.info("📊 Gerando painéis visuais a partir do banco atualizado...")
         

@@ -26,26 +26,25 @@ def treinar_modelo_previsao(df: pd.DataFrame, coluna_alvo: str, colunas_features
     X = df[colunas_features]
     y = df[coluna_alvo]
     
-    # Treinamento do modelo
+    # 🟢 Treinamento do modelo
     from sklearn.ensemble import RandomForestRegressor
     modelo = RandomForestRegressor(n_estimators=100, random_state=42)
     modelo.fit(X, y)
     
-    # CORREÇÃO: Em vez de retornar o modelo, vamos gerar as previsões
-    # e criar um DataFrame (tabela) para o DuckDB conseguir salvar
+    # 🟢 Geração das previsões e criar um DataFrame para o DuckDB conseguir salvar
     
-    df_resultados = df.copy() # Copiamos os dados originais
+    df_resultados = df.copy() # Cópia dos dados originais
     
-    # Criamos uma nova coluna com a previsão que a IA fez para cada linha
+    # 🟢 Criamos uma nova coluna com a previsão que a IA fez para cada linha
     df_resultados['previsao_qtd'] = modelo.predict(X)
     
-    # Opcional: arredondar as previsões, já que não vendemos "meio" produto
+    # 🟢 Arredondamento das previsões
     df_resultados['previsao_qtd'] = df_resultados['previsao_qtd'].round(0).astype(int)
     
-    # Retornamos apenas as colunas que importam para o banco de dados
+    # 🟢 Retornamos apenas as colunas que importam para o banco de dados
     colunas_finais = ['id_vendas', 'id_produto', 'data_venda', 'qtd', 'previsao_qtd']
     
-    # Filtra para retornar apenas as colunas se elas existirem no df
+    # 🟢 Filtra para retornar apenas as colunas se elas existirem no df
     colunas_existentes = [col for col in colunas_finais if col in df_resultados.columns]
     
     return df_resultados[colunas_existentes]

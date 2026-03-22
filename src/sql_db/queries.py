@@ -1,6 +1,6 @@
 
 """
-Centraliza todas as queries SQL da LH Nauticals
+Centraliza todas as queries SQL da LH Nautical
 """
 
 
@@ -62,21 +62,24 @@ EXTRAIR_FATURAMENTO_POR_SUBCATEGORIA = """
     """
 
 EXTRAIR_PRODUTOS_MAIOR_PREJUIZO = """
-    -- Exibe os 5 produtos que mais causaram prejuízo
-
+-- Exibe os 5 produtos que mais causaram prejuízo no total acumulado
     SELECT
         i.produto,
         i.categoria,
-        ROUND(SUM(v.total) - (i.brl_price * SUM(v.qtd)), 2) as resultado_financeiro,
+        ROUND(SUM(v.total) - SUM(i.brl_price * v.qtd), 2) as resultado_financeiro,
         ROUND(((SUM(v.total) - SUM(i.brl_price * v.qtd)) / SUM(v.total)) * 100, 2) AS margem_percentual
     FROM 
         vendas as v
     JOIN
         custo_importacoes as i
     ON v.id_produto = i.id_produto
-    GROUP BY i.produto, i.brl_price, i.categoria, data_venda
-    ORDER BY resultado_financeiro asc
-    limit 5
+    GROUP BY 
+        i.produto, 
+        i.categoria, 
+        i.brl_price
+    ORDER BY 
+        resultado_financeiro ASC
+    LIMIT 5
     """
 
 EXTRAIR_VENDAS_POR_MES = """
@@ -130,21 +133,24 @@ EXTRAIR_TIQUETE_MEDIO_ESTADO = """
         """
 
 EXTRAIR_PRODUTOS_MAIOR_LUCRO = """
-    -- Exibe os 5 produtos que mais trouxeram lucro, do maior para o menor
-
+-- Exibe os 5 produtos que mais trouxeram lucro no total acumulado
     SELECT
         i.produto,
         i.categoria,
-        ROUND(SUM(v.total) - (i.brl_price * SUM(v.qtd)), 2) as resultado_financeiro,
+        ROUND(SUM(v.total) - SUM(i.brl_price * v.qtd), 2) as resultado_financeiro,
         ROUND(((SUM(v.total) - SUM(i.brl_price * v.qtd)) / SUM(v.total)) * 100, 2) AS margem_percentual
     FROM 
         vendas as v
     JOIN
         custo_importacoes as i
     ON v.id_produto = i.id_produto
-    GROUP BY i.produto, i.brl_price, i.categoria, data_venda
-    ORDER BY resultado_financeiro DESC
-    limit 5
+    GROUP BY 
+        i.produto, 
+        i.categoria, 
+        i.brl_price
+    ORDER BY 
+        resultado_financeiro DESC
+    LIMIT 5
 """
 
 EXTRAIR_MEDIA_FATURAMENTO_DIA_SEMANA = """

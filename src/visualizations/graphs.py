@@ -31,7 +31,7 @@ def gerar_grafico_faturamento_categoria(db_path: str, pasta_destino: str):
     configurar_estilo()
     plt.figure()
 
-    # Desenha o gráfico de barras horizontais (ideal para nomes de categorias)
+    # Desenha o gráfico de barras horizontais
     sns.barplot(
         data=df, 
         x='lucro_total', 
@@ -66,7 +66,7 @@ def gerar_grafico_sazonalidade_mensal(db_path: str, pasta_destino: str):
         x='mes_do_ano', 
         y='faturamento_historico', 
         marker='o', 
-        color='#2ecc71', # Um verde agradável
+        color='#2ecc71',
         linewidth=2.5
     )
 
@@ -84,19 +84,23 @@ def gerar_grafico_sazonalidade_mensal(db_path: str, pasta_destino: str):
 def gerar_grafico_top5_produtos_lucro_prejuizo(db_path: str, pasta_destino: str):
     """
     Gera dois gráficos de barras separados: um para os produtos que dão mais lucro 
-    e outro para os que dão mais prejuízo.
+    e outro para os que dão mais prejuízo (limitado aos Top 5).
     """
     with duckdb.connect(db_path) as conn:
+        # Extrai os dados
         df_lucro = conn.execute(EXTRAIR_PRODUTOS_MAIOR_LUCRO).df()
         df_prejuizo = conn.execute(EXTRAIR_PRODUTOS_MAIOR_PREJUIZO).df()
+
+    df_lucro = df_lucro.head(5)
+    df_prejuizo = df_prejuizo.head(5)
 
     configurar_estilo()
     os.makedirs(pasta_destino, exist_ok=True)
 
     # 1. Gráfico de Lucro (Verde)
-    plt.figure()
+    plt.figure(figsize=(10, 6)) # Adicionado figsize para garantir espaço
     sns.barplot(data=df_lucro, x='resultado_financeiro', y='produto', palette='Greens_r')
-    plt.title('Top 5 Produtos com Maior Lucro', fontsize=16, pad=15)
+    plt.title('Top 5 produtos com maior lucro', fontsize=16, pad=15)
     plt.xlabel('Lucro (R$)')
     plt.ylabel('')
     
@@ -105,10 +109,13 @@ def gerar_grafico_top5_produtos_lucro_prejuizo(db_path: str, pasta_destino: str)
     plt.close()
 
     # 2. Gráfico de Prejuízo (Vermelho)
-    plt.figure()
-    # No prejuízo, os números costumam ser negativos, o barplot lida bem com isso
+    plt.figure(figsize=(10, 6)) # Adiciona figsize para garantir espaço
     sns.barplot(data=df_prejuizo, x='resultado_financeiro', y='produto', palette='Reds_r')
-    plt.title('Top 5 Produtos com Maior Prejuízo', fontsize=16, pad=15)
+    
+    # Ajuste dinâmico do título caso existam menos de 5 produtos com prejuízo
+    qtd_prejuizo = len(df_prejuizo)
+    plt.title(f'Top {qtd_prejuizo} Produtos com maior prejuízo', fontsize=16, pad=15)
+    
     plt.xlabel('Prejuízo (R$)')
     plt.ylabel('')
     
@@ -141,10 +148,10 @@ def gerar_grafico_tiquete_estado(db_path: str, pasta_destino: str):
         df = conn.execute(EXTRAIR_TIQUETE_MEDIO_ESTADO).df()
 
     configurar_estilo()
-    plt.figure(figsize=(14, 6)) # Deixamos a imagem um pouco mais larga para caber os estados
+    plt.figure(figsize=(14, 6)) # Deixa a imagem um pouco mais larga para caber os estados
 
     sns.barplot(data=df, x='estado', y='tiquete_medio_estado', palette='magma')
-    plt.title('Tíquete Médio por Estado', fontsize=16, pad=15)
+    plt.title('Tíquete médio por estado', fontsize=16, pad=15)
     plt.xlabel('Estado')
     plt.ylabel('Tíquete Médio (R$)')
     
@@ -157,7 +164,7 @@ def gerar_grafico_top5_clientes_rentaveis(db_path: str, pasta_destino: str):
     with duckdb.connect(db_path) as conn:
         df = conn.execute(EXTRAIR_CLIENTES).df()
 
-    # Como a query traz todos os clientes ordenados, pegamos apenas os 5 primeiros
+    # Retorna apenas os 5 primeiros clientes
     df_top5 = df.head(5)
 
     configurar_estilo()
@@ -165,7 +172,7 @@ def gerar_grafico_top5_clientes_rentaveis(db_path: str, pasta_destino: str):
 
     sns.barplot(data=df_top5, x='lucro_liq_cliente', y='nome_cliente', palette='Blues_r')
     
-    plt.title('Top 5 Clientes Mais Rentáveis (Lucro Líquido)', fontsize=16, pad=15)
+    plt.title('Top 5 clientes mais rentáveis (Lucro Líquido)', fontsize=16, pad=15)
     plt.xlabel('Lucro Líquido (R$)')
     plt.ylabel('')
     
@@ -183,11 +190,11 @@ def gerar_grafico_faturamento_subcategoria(db_path: str, pasta_destino: str):
         df = conn.execute(EXTRAIR_FATURAMENTO_POR_SUBCATEGORIA).df()
 
     configurar_estilo()
-    plt.figure(figsize=(12, 8)) # Aumentamos um pouco a altura caso existam muitas subcategorias
+    plt.figure(figsize=(12, 8)) # Aumenta um pouco a altura caso existam muitas subcategorias
 
     sns.barplot(data=df, x='lucro_total', y='subcategoria_produto', palette='viridis')
     
-    plt.title('Faturamento (Lucro) por Subcategoria', fontsize=16, pad=15)
+    plt.title('Faturamento por subcategoria', fontsize=16, pad=15)
     plt.xlabel('Lucro Total (R$)')
     plt.ylabel('')
     
