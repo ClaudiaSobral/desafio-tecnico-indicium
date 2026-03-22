@@ -96,18 +96,18 @@ Este modelo utiliza a técnica de Similaridade de Cosseno aplicada a uma matriz 
 * 🔎**Clareza ao rodar**: seria interessante que o log, os prints e previsões de erro fossem mais detalhados para o acompanhamento no terminal e no próprio log.
 * ⚙️ **Automatização do script**: falta um aspecto crucial a ser implementado no script, que é a automatização de seu acionamento. É importante ver junto aos stakeholders quais ferramentas seriam mais indicadas para essa automatização, se uma simples automatização de sistema operacional funcionaria ou se precisamos de uma solução mais robusta, como Docker + Airflow.
 * 🪛 **Aperfeiçoamentos técnicos:**
-    . no geral, seria importante aplicar restrições ao input de dados na tabela, para evitar tipagens errôneas e reduzir o trabalho de limpeza.
-    . em subcategorias de produtos, na tabela de produtos, o termo "Piloto Automático" está sendo reduzido para "Piloto".
-    . na tabela de custos_importacoes, a categoria "taxa_do_dia" representa o fallback da API. É importante avaliar se o cálculo está sendo feito com base no fallback da cotação e substituir pela cotação adquirida pela API.
-    . na tabela de custos_importacoes, a chave primária apresenta o mesmo título da chave primária da tabela produtos. Seria desejável avaliar o quanto isso impacta na modelagem de dados. Possivelmente, uma mesclagem dessas tabelas pode ser feita sem grandes impactos no modelo.
+    . No geral, seria importante aplicar restrições ao input de dados na tabela, para evitar tipagens errôneas e reduzir o trabalho de limpeza.
+    . Em subcategorias de produtos, na tabela de produtos, o termo "Piloto Automático" está sendo reduzido para "Piloto".
+    . Na tabela de custos_importacoes, a categoria "taxa_do_dia" representa o fallback da API. É importante avaliar se o cálculo está sendo feito com base no fallback da cotação e substituir pela cotação adquirida pela API.
+    . Na tabela de custos_importacoes, a chave primária apresenta o mesmo título da chave primária da tabela produtos. Seria desejável avaliar o quanto isso impacta na modelagem de dados. Possivelmente, uma mesclagem dessas tabelas pode ser feita sem grandes impactos no modelo.
     . Existe um parâmetro chamado "palettes" na função "barplot", que gera os gráficos, que vai ser removida em futuras versões do Seaborn. É importante ajustar para tornar a função mais compatível com versões futuras dessa biblioteca.
     . Implementar um sistema de integração com um sistema de macros de planilha é importante para que o time comercial consiga usar com tranquilidade os modelos preditivos.
 
 ## Instalação
 1. **Clone o repositório**
 ```
-git clone https://github.com/yourusername/bdesafio-tecnico-indicium.git
-cd lh_nautical_project
+git clone https://github.com/yourusername/desafio-tecnico-indicium.git
+cd desafio_tecnico_indicium
 ```
 2. ***(Optional) Crie um virtual environment***
 ```python -m venv venv
