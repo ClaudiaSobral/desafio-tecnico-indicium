@@ -1,5 +1,6 @@
 # Projeto ETL + Análise + ML para LH Nautical 
 Esse projeto cria uma pipeline de dados com ETL de dados brutos, processamento para análise e criação de modelos preditivos utilizando as bases da LH Nauticals utilizando Python e DuckDB. <br>
+Você pode consultar a apresentação em PDF com todos os gráficos [aqui](https://drive.google.com/drive/folders/1P3SugWmGbkPw9yYKAzFlZFEV-ojyrLgZ?usp=drive_link) e a apresentação em vídeo [aqui](https://youtu.be/uJXBljkRVMc)
 
 ## Visão geral
 O objetivo do projeto é integrar dados brutos fragmentados do cliente **LH Nautical** em uma única base de dados, utilizando uma arquitetura modular Modern Data Stack (MDS) que permite a implementação e atualização contínua de uma pipeline de dados, estabelecendo-se como uma solução ao cenário atual de dispersão dos dados do cliente, garantindo uma "Single Source of Truth" para o cliente. O projeto inclui:<br>
