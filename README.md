@@ -32,7 +32,8 @@ O objetivo do projeto é integrar dados brutos fragmentados do cliente **LH Naut
 * Dashboards: Tabelas finais prontas para serem lidas por ferramentas de BI ou consultadas via SQL puro.
 
 ## Insights de negócio
-Você pode consultar a apresentação em PDF com gráficos [aqui](https://drive.google.com/drive/folders/1P3SugWmGbkPw9yYKAzFlZFEV-ojyrLgZ?usp=drive_link).
+Você pode consultar a apresentação em PDF com todos os gráficos [aqui](https://drive.google.com/drive/folders/1P3SugWmGbkPw9yYKAzFlZFEV-ojyrLgZ?usp=drive_link).<br>
+![faturamento_por_categoria.png](visualizations/faturamento_por_categoria.png)
 * Das três categorias vendidas pela LH Nautical (ancoragem, eletrônicos e propulsão), apenas "propulsão" dá lucro para a empresa. Eletrônicos dá um pouco de prejuízo e ancoragem, mais ainda.
 * O Rio de Janeiro, Amapá e Espírito Santo são os estados com maior tíquete médio por compra.
 * Setembro é o mês de pior faturamento histórico da LH Nautical. Depois disso, há uma ascendente até atingir o pico máximo em novembro e voltar a cair até janeiro, onde retoma um ritmo mais ou menos constante até o reinício do ciclo.
